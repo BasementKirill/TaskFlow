@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/BasementKirill/taskflow/assets/icon.png" width="144"/>
+  <img src="assets/icon.png" width="144"/>
   <h1 align="center">TaskFlow</h1>
 
   <p align="center">
@@ -20,7 +20,7 @@
 
   <br/>
   
-  <img src="https://raw.githubusercontent.com/BasementKirill/taskflow/assets/screenshot.png" alt="TaskFlow Dashboard Preview" width="100%" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" />
+  <img src="screenshot.png" alt="TaskFlow Dashboard Preview" width="100%" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" />
 
 </div>
 
