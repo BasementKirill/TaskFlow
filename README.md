@@ -20,7 +20,7 @@
 
   <br/>
   
-  <img src="screenshot.png" alt="TaskFlow Dashboard Preview" width="100%" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" />
+  <img src="assets/screenshot.png" alt="TaskFlow Dashboard Preview" width="100%" style="border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" />
 
 </div>
 
