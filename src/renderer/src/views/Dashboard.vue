@@ -1,3 +1,23 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import type { IPlayer } from '@/interfaces/IPlayer'
+import { calculateStreak } from '../../../main/scripts/streakLogic' 
+
+const user = ref('amk')
+const streak = ref(0) 
+const leaderboard = ref<IPlayer[]>([
+  { name: 'Sarah Chen', xp: 12450, isMe: false },
+  { name: 'Mike Johnson', xp: 11890, isMe: false },
+  { name: 'Emma Davis', xp: 10320, isMe: false },
+  { name: 'amk', xp: 1250, isMe: true },
+  { name: 'Alex Park', xp: 8760, isMe: false }
+])
+
+onMounted(() => {
+  streak.value = calculateStreak()
+  console.log("Streak aktualisiert:", streak.value)
+})
+</script>
 <template>
   <div class="p-8 text-white bg-[#0f121d] min-h-screen">
     <header class="flex justify-between items-center mb-8">

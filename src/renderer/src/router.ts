@@ -1,14 +1,19 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
-import Automations from './views/Automations.vue'
 
-const routes = [
-  { path: '/', redirect: '/dashboard' },
-  { path: '/dashboard', component: Dashboard },
-  { path: '/automations', component: Automations },
+const routes: RouteRecordRaw[] = [
+  { 
+    path: '/', 
+    redirect: { name: 'Dashboard' } 
+  },
+  { 
+    path: '/dashboard', 
+    name: 'Dashboard',
+    component: Dashboard 
+  }
 ]
 
 export const router = createRouter({
-  history: createWebHashHistory(), //für Electron
+  history: createWebHashHistory(),
   routes,
 })
