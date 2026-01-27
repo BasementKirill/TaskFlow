@@ -1,10 +1,10 @@
-import { createApp, createTextVNode } from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
-import './assets/main.css';
-import { router } from './router'
+import './assets/main.css'; 
+import { router } from './router';
 
-const app = createApp(App)
-app.use(router)
+const app = createApp(App);
 
-createApp(App).mount('#app');
+app.use(router); 
 
+app.mount('#app'); 

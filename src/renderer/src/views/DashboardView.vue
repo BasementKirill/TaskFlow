@@ -19,17 +19,17 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div class="p-8 text-white bg-[#0f121d] min-h-screen">
+  <div class="p-10">
     <header class="flex justify-between items-center mb-8">
       <div>
-        <h1 class="text-3xl font-bold">Willkommen, {{ user }}! 👋</h1>
+        <h1 class="text-2xl font-bold">Willkommen, {{ user }}! 👋</h1>
       </div>
-      <div class="flex items-center gap-4 bg-[#1a1f2e] p-3 rounded-xl border border-gray-800">
-        <span class="text-xs font-bold text-orange-400">🔥 {{ streak }} day streak</span>
+      <div class="flex items-center gap-4">
+        <span class="text-s font-bold text-orange-400">🔥 {{ streak }} day streak</span>
         <div class="w-48 h-2 bg-gray-700 rounded-full overflow-hidden">
           <div class="bg-purple-500 h-full" :style="{ width: '50%' }"></div>
         </div>
-        <span class="text-xs">250 / 500 XP</span>
+        <span class="text-s">250 / 500 XP</span>
       </div>
     </header>
 
