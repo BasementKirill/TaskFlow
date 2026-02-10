@@ -1,28 +1,34 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import type { IPlayer } from '@/interfaces/IPlayer'
+import { useAuth } from '../composables/useAuth'
+import { useLeaderboard } from '../composables/useLeaderboard'
 import { calculateStreak } from '../../../main/scripts/streakLogic' 
+import { Trophy } from 'lucide-vue-next'
 
-const user = ref('amk')
+const { currentUser } = useAuth()
+const { leaderboard, isLoading, generateDemoLeaderboard } = useLeaderboard()
+
 const streak = ref(0) 
-const leaderboard = ref<IPlayer[]>([
-  { name: 'Sarah Chen', xp: 12450, isMe: false },
-  { name: 'Mike Johnson', xp: 11890, isMe: false },
-  { name: 'Emma Davis', xp: 10320, isMe: false },
-  { name: 'amk', xp: 1250, isMe: true },
-  { name: 'Alex Park', xp: 8760, isMe: false }
-])
 
 onMounted(() => {
   streak.value = calculateStreak()
+  generateDemoLeaderboard()
   console.log("Streak aktualisiert:", streak.value)
 })
+
+// Helper to get rank suffix
+const getRankSuffix = (rank: number) => {
+  if (rank === 1) return 'st'
+  if (rank === 2) return 'nd'
+  if (rank === 3) return 'rd'
+  return 'th'
+}
 </script>
 <template>
   <div class="p-10">
     <header class="flex justify-between items-center mb-8">
       <div>
-        <h1 class="text-2xl font-bold">Willkommen, {{ user }}! 👋</h1>
+        <h1 class="text-2xl font-bold">Willkommen, {{ currentUser?.username }}! 👋</h1>
       </div>
       <div class="flex items-center gap-4">
         <span class="text-s font-bold text-orange-400">🔥 {{ streak }} day streak</span>
@@ -73,17 +79,40 @@ onMounted(() => {
       </div>
 
       <div class="bg-[#1a1f2e] p-8 rounded-2xl border border-gray-800">
-        <h3 class="text-xl font-bold mb-6">🏆 Leaderboard</h3>
-        <div class="space-y-4">
-          <div v-for="(player, index) in leaderboard" :key="index" 
-               class="flex justify-between items-center p-2 rounded-lg"
-               :class="{'bg-blue-900/30 border border-blue-500/50': player.isMe}">
+        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+          <Trophy :size="24" class="text-yellow-400" />
+          Leaderboard
+        </h3>
+        <div class="space-y-3">
+          <div v-for="(player, index) in leaderboard" :key="player.id" 
+               class="flex justify-between items-center p-3 rounded-xl transition-all hover:bg-gray-800/30"
+               :class="{'bg-blue-900/30 border border-blue-500/50 shadow-lg shadow-blue-500/10': player.isMe}">
             <div class="flex items-center gap-3">
-              <span class="text-gray-500 font-bold w-4">{{ index + 1 }}</span>
-              <div class="w-8 h-8 bg-gray-600 rounded-full"></div>
-              <span class="font-medium">{{ player.name }}</span>
+              <div class="relative">
+                <!-- Rank Badge -->
+                <div class="absolute -top-1 -left-1 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold z-10"
+                     :class="{
+                       'bg-gradient-to-br from-yellow-400 to-yellow-600 text-yellow-900': index === 0,
+                       'bg-gradient-to-br from-gray-300 to-gray-500 text-gray-900': index === 1,
+                       'bg-gradient-to-br from-orange-400 to-orange-600 text-orange-900': index === 2,
+                       'bg-gray-700 text-gray-300': index > 2
+                     }">
+                  {{ index + 1 }}
+                </div>
+                <!-- Avatar -->
+                <div class="w-10 h-10 rounded-full overflow-hidden ring-2 ring-gray-700"
+                     :class="{'ring-blue-500': player.isMe}">
+                  <img :src="player.avatar_url" :alt="player.username" class="w-full h-full object-cover" />
+                </div>
+              </div>
+              <span class="font-semibold text-sm" :class="{'text-blue-400': player.isMe}">
+                {{ player.username }}
+              </span>
             </div>
-            <span class="text-gray-400 text-sm">{{ player.xp.toLocaleString() }} XP</span>
+            <div class="text-right">
+              <span class="text-gray-400 text-xs font-bold">{{ player.xp.toLocaleString() }}</span>
+              <span class="text-gray-500 text-xs ml-1">XP</span>
+            </div>
           </div>
         </div>
       </div>

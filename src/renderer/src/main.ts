@@ -1,10 +1,15 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import './assets/main.css'; 
+import './assets/main.css';
 import { router } from './router';
+import { useAuth } from './composables/useAuth';
 
 const app = createApp(App);
 
-app.use(router); 
+app.use(router);
 
-app.mount('#app'); 
+// Initialize auth state from localStorage
+const { initAuth } = useAuth();
+initAuth();
+
+app.mount('#app');
